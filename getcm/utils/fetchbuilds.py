@@ -23,7 +23,7 @@ class FetchBuild(object):
         init_database(create_engine(config.get('database', 'uri')))
 
     def get_builds(self):
-        url = "http://jenkins.pecancm.com/job/android/api/json"
+        url = "http://jenkins.pecancm.org/job/android/api/json"
         data = urllib2.urlopen(url).read()
         data = json.loads(data)
 
@@ -48,7 +48,7 @@ class FetchBuild(object):
         result = []
         for artifact in data['artifacts']:
             if artifact['displayPath'].endswith(".zip") or artifact['displayPath'].endswith("CHANGES.txt"):  # and "NIGHTLY" in artifact['displayPath'] or "SNAPSHOT" in artifact['displayPath'] or "EXPERIMENTAL" in artifact['displayPath']:
-                url = "http://jenkins.pecancm.com/job/android/%s/artifact/archive/%s" % (build['number'], artifact['displayPath'])
+                url = "http://jenkins.pecancm.org/job/android/%s/artifact/archive/%s" % (build['number'], artifact['displayPath'])
                 timestamp = (data['timestamp'] + data['duration']) / 1000
                 result.append((url, timestamp))
         return result
@@ -65,7 +65,7 @@ class FetchBuild(object):
                         continue
                     fileobj = File.get_by_fullpath(full_path)
                     if not fileobj:
-                        base = "artifacts/%s" % artifact.replace("http://jenkins.pecancm.com/job/android/", "")
+                        base = "artifacts/%s" % artifact.replace("http://jenkins.pecancm.org/job/android/", "")
                         build_number = base.split("/")[1]
                         fname = base.split("/")[-1]
                         build_type = "stable"
@@ -91,7 +91,7 @@ class FetchBuild(object):
                         print "Running: %s" % download_cmd
                         os.system(download_cmd)
                         if (fname != "CHANGES.txt"):
-                            mirror_cmd = "ssh -p2200 root@mirror.sea.tdrevolution.net \"/root/add.sh /srv/mirror/jenkins/%s %s %s\"" % (build_number, artifact, fname)
+                            mirror_cmd = "ssh pecancm@pecancm.org \"/root/add.sh /srv/mirror/jenkins/%s %s %s\"" % (build_number, artifact, fname)
                             print "Running: %s" % mirror_cmd
                             os.system(mirror_cmd)
                             addfile_cmd = "/usr/local/bin/getcm.addfile --timestamp %s --file /opt/www/mirror/jenkins/%s/%s --fullpath jenkins/%s/%s --type %s --config %s" % (timestamp, build_number, fname, build_number, fname, build_type, self.configPath)
