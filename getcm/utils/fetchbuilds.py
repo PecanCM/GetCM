@@ -75,7 +75,7 @@ class FetchBuild(object):
                         continue
                     fileobj = File.get_by_fullpath(full_path)
                     if not fileobj:
-                        base = "artifacts/%s" % artifact.replace("http://jenkins.pecancm.org/job/android/", "http://jenkins.pecancm.org/job/cm-9_experimental/", "http://jenkins.pecancm.org/job/cm-10.1_experimental/", "http://jenkins.pecancm.org/job/cm-10_experimental/", "http://jenkins.pecancm.org/job/cm-10.1_weekly/", "http://jenkins.pecancm.org/job/cm9_weekly/", "")
+                        base = "artifacts/%s" % artifact.replace("http://jenkins.pecancm.org/job/android/",  "")
                         build_number = base.split("/")[1]
                         fname = base.split("/")[-1]
                         build_type = "stable"
