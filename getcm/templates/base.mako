@@ -55,7 +55,7 @@
               <li id="type_all"><a href="javascript:void(0)" onclick="navigate_type('')">all</a></li>
               <li id="type_stable"><a href="javascript:void(0)" onclick="navigate_type('stable')">stable</a></li>
               <li id="type_RC"><a href="javascript:void(0)" onclick="navigate_type('RC')">release candidate</a></li>
-              <li id="type_snapshot"><a href="javascript:void(0)" onclick="navigate_type('snapshot')">M snapshot</a></li>
+              <li id="type_snapshot"><a href="javascript:void(0)" onclick="navigate_type('snapshot')">Experimental</a></li>
               <li id="type_nightly"><a href="javascript:void(0)" onclick="navigate_type('nightly')">nightly</a></li>
             </ul>
           </div>
