@@ -68,7 +68,7 @@ def main():
     parser.add_argument('--basepath',
                         dest='base_path',
                         required=False,
-                        default="/opt/www/mirror/cm/",
+                        default="/var/www/mirror/cm/",
                         help="Webroot of the mirror.")
     parser.add_argument('--config',
                         dest='config',

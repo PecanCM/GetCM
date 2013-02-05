@@ -60,7 +60,7 @@ class FetchBuild(object):
                 for artifactdata in artifactlist:
                     artifact, timestamp = artifactdata
                     full_path = "jenkins/%s/%s" % (artifact.split("/")[5], artifact.split("/")[-1])
-                    if os.path.exists("/opt/www/mirror/%s" % full_path):
+                    if os.path.exists("/var/www/mirror/%s" % full_path):
                         print "Exists, skipping."
                         continue
                     fileobj = File.get_by_fullpath(full_path)
@@ -84,14 +84,14 @@ class FetchBuild(object):
                             build_type = "RC"
                         #cmd = "/usr/local/bin/getcm.addfile --timestamp %s --url %s --fullpath %s --type %s --config %s" % (timestamp, artifact, base, build_type, self.configPath)
                         try:
-                            os.mkdir("/opt/www/mirror/jenkins/%s" % build_number)
+                            os.mkdir("/var/www/mirror/jenkins/%s" % build_number)
                         except:
                             pass
-                        download_cmd = "wget -O /opt/www/mirror/jenkins/%s/%s %s" % (build_number, fname, artifact)
+                        download_cmd = "wget -O /var/www/mirror/jenkins/%s/%s %s" % (build_number, fname, artifact)
                         print "Running: %s" % download_cmd
                         os.system(download_cmd)
                         if (fname != "CHANGES.txt"):
-                            addfile_cmd = "/usr/local/bin/getcm.addfile --timestamp %s --file /opt/www/mirror/jenkins/%s/%s --fullpath jenkins/%s/%s --type %s --config %s" % (timestamp, build_number, fname, build_number, fname, build_type, self.configPath)
+                            addfile_cmd = "/usr/local/bin/getcm.addfile --timestamp %s --file /var/www/mirror/jenkins/%s/%s --fullpath jenkins/%s/%s --type %s --config %s" % (timestamp, build_number, fname, build_number, fname, build_type, self.configPath)
                             print "Running: %s" % addfile_cmd
                             os.system(addfile_cmd)
                             #raise SystemExit()
